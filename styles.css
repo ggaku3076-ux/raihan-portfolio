@@ -47,9 +47,9 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 72px 72px;
+    linear-gradient(rgba(103, 213, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 213, 255, 0.018) 1px, transparent 1px);
+  background-size: 96px 96px;
   mask-image: linear-gradient(to bottom, black, transparent 82%);
   z-index: -1;
 }
@@ -60,10 +60,9 @@ body::after {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(118deg, transparent 0 18%, rgba(103, 213, 255, 0.12) 18.15%, transparent 18.35% 55%, rgba(28, 156, 255, 0.1) 55.2%, transparent 55.45%),
-    linear-gradient(62deg, transparent 0 32%, rgba(103, 213, 255, 0.08) 32.1%, transparent 32.34% 76%, rgba(28, 156, 255, 0.07) 76.1%, transparent 76.35%),
-    repeating-linear-gradient(135deg, transparent 0 140px, rgba(103, 213, 255, 0.035) 141px, transparent 143px);
-  opacity: 0.72;
+    linear-gradient(118deg, transparent 0 18%, rgba(103, 213, 255, 0.075) 18.15%, transparent 18.35% 55%, rgba(28, 156, 255, 0.055) 55.2%, transparent 55.45%),
+    linear-gradient(62deg, transparent 0 32%, rgba(103, 213, 255, 0.045) 32.1%, transparent 32.34% 76%, rgba(28, 156, 255, 0.04) 76.1%, transparent 76.35%);
+  opacity: 0.64;
   mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
   z-index: -1;
 }
@@ -189,6 +188,7 @@ h1 {
   font-size: clamp(3.1rem, 7vw, 6.9rem);
   line-height: 0.92;
   letter-spacing: 0;
+  text-shadow: 0 0 28px rgba(28, 156, 255, 0.22);
 }
 
 .hero h2 {
@@ -238,7 +238,7 @@ h1 {
   border: 1px solid rgba(103, 213, 255, 0.72);
   color: #001427;
   background: linear-gradient(135deg, var(--blue-light), var(--blue));
-  box-shadow: 0 18px 44px rgba(28, 156, 255, 0.24);
+  box-shadow: 0 18px 44px rgba(28, 156, 255, 0.24), 0 0 28px rgba(103, 213, 255, 0.18);
 }
 
 .button-secondary {
@@ -394,16 +394,21 @@ h1 {
 }
 
 .achievement-panel {
-  display: grid;
-  gap: 14px;
-  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
 }
 
 .metric {
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  padding: 8px 0 18px;
+  border-bottom: 1px solid rgba(103, 213, 255, 0.14);
+}
+
+.metric:last-child {
+  border-bottom: 0;
+  padding-bottom: 8px;
 }
 
 .metric strong {
@@ -453,14 +458,14 @@ h1 {
   border-radius: 8px;
   overflow: hidden;
   background: var(--panel);
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22), 0 0 26px rgba(28, 156, 255, 0.08);
   transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
   border-color: var(--line-strong);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34), 0 0 42px var(--shadow);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34), 0 0 52px rgba(28, 156, 255, 0.24);
 }
 
 .project-preview {
@@ -474,132 +479,14 @@ h1 {
   isolation: isolate;
 }
 
-.project-preview::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 0 34%, rgba(255, 255, 255, 0.12) 45%, transparent 56% 100%);
-  transform: translateX(-120%);
-  animation: preview-sheen 5.8s ease-in-out infinite;
+.project-preview iframe {
+  width: 1280px;
+  height: 760px;
+  border: 0;
+  transform: scale(0.29);
+  transform-origin: top left;
   pointer-events: none;
-  z-index: 1;
-}
-
-.preview-catering {
-  --preview-accent: #4fc3ff;
-}
-
-.preview-care {
-  --preview-accent: #6ee7ff;
-}
-
-.preview-organizer {
-  --preview-accent: #328dff;
-}
-
-.preview-browser {
-  position: relative;
-  z-index: 2;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0 14px;
-  background: rgba(1, 8, 20, 0.48);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.preview-browser span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(238, 246, 255, 0.48);
-}
-
-.preview-layout {
-  position: relative;
-  z-index: 2;
-  min-height: 176px;
-  padding: 24px;
-}
-
-.preview-layout::before,
-.preview-layout::after {
-  content: "";
-  position: absolute;
-  border: 1px solid rgba(103, 213, 255, 0.1);
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-.preview-layout::before {
-  right: 22px;
-  top: 22px;
-  width: 36%;
-  height: 74px;
-  background: linear-gradient(135deg, rgba(103, 213, 255, 0.14), rgba(2, 8, 20, 0.34));
-}
-
-.preview-layout::after {
-  left: 24px;
-  right: 24px;
-  bottom: 22px;
-  height: 1px;
-  border-width: 0;
-  background: linear-gradient(90deg, transparent, rgba(103, 213, 255, 0.34), transparent);
-}
-
-.preview-hero-line,
-.preview-text-line,
-.preview-tiles span {
-  border-radius: 8px;
-  background: linear-gradient(90deg, rgba(238, 246, 255, 0.18), rgba(103, 213, 255, 0.32));
-}
-
-.preview-hero-line {
-  width: 52%;
-  height: 16px;
-  box-shadow: 0 0 24px color-mix(in srgb, var(--preview-accent), transparent 62%);
-}
-
-.preview-text-line {
-  width: 44%;
-  height: 8px;
-  margin-top: 14px;
-  opacity: 0.72;
-}
-
-.preview-text-line.short {
-  width: 32%;
-}
-
-.preview-tiles {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: 34px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.preview-tiles span {
-  height: 42px;
-  border: 1px solid rgba(103, 213, 255, 0.13);
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--preview-accent), transparent 82%), rgba(255, 255, 255, 0.04));
-}
-
-@keyframes preview-sheen {
-  0%,
-  54% {
-    transform: translateX(-120%);
-  }
-
-  78%,
-  100% {
-    transform: translateX(120%);
-  }
+  background: #06101d;
 }
 
 .project-content {
@@ -643,20 +530,19 @@ h1 {
 }
 
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .skills-grid span {
-  min-height: 76px;
-  display: flex;
+  min-height: 44px;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   text-align: center;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 999px;
+  padding: 12px 18px;
   color: #dceeff;
   background: rgba(255, 255, 255, 0.035);
   font-weight: 800;
@@ -679,6 +565,7 @@ h1 {
   background:
     radial-gradient(circle at 50% 0%, rgba(28, 156, 255, 0.24), transparent 32rem),
     var(--panel-strong);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 52px rgba(28, 156, 255, 0.14);
 }
 
 .contact-panel h2 {
@@ -751,16 +638,47 @@ h1 {
     min-height: 270px;
   }
 
+  .project-preview iframe {
+    transform: scale(0.38);
+  }
+
   .project-content p {
     min-height: auto;
   }
 
   .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 }
 
 @media (max-width: 720px) {
+  body::after {
+    display: none;
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .project-card,
+  .skills-grid span,
+  .button {
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+  }
+
+  .project-card:hover,
+  .skills-grid span:hover,
+  .button:hover {
+    transform: none;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 18px 54px rgba(0, 0, 0, 0.26), 0 0 24px rgba(28, 156, 255, 0.12);
+  }
+
   .nav {
     width: min(100% - 28px, var(--max));
     min-height: 68px;
@@ -852,11 +770,23 @@ h1 {
 
   .project-preview {
     min-height: auto;
-    height: 190px;
+    height: 210px;
+  }
+
+  .project-preview iframe {
+    width: 1180px;
+    height: 760px;
+    transform: scale(0.24);
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .skills-grid span {
+    min-height: 40px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
   }
 }
 
@@ -871,13 +801,12 @@ h1 {
     font-size: 3rem;
   }
 
-  .preview-layout {
-    padding: 20px;
+  .project-preview {
+    height: 185px;
   }
 
-  .preview-tiles {
-    left: 20px;
-    right: 20px;
-    gap: 8px;
+  .project-preview iframe {
+    width: 1080px;
+    transform: scale(0.21);
   }
 }
