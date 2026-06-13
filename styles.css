@@ -43,7 +43,7 @@ body {
 
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   background-image:
@@ -56,7 +56,7 @@ body::before {
 
 body::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   background:
@@ -148,6 +148,8 @@ a {
   width: min(100% - 40px, var(--max));
   margin: 0 auto;
   padding: 88px 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 760px;
 }
 
 .hero {
@@ -155,6 +157,7 @@ a {
   display: flex;
   align-items: center;
   padding-top: 72px;
+  content-visibility: visible;
 }
 
 .hero-grid {
@@ -445,6 +448,7 @@ h1 {
 
 .project-card {
   min-width: 0;
+  contain: content;
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
@@ -460,20 +464,142 @@ h1 {
 }
 
 .project-preview {
+  position: relative;
   height: 210px;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(145deg, rgba(28, 156, 255, 0.18), rgba(255, 255, 255, 0.03));
+  background:
+    radial-gradient(circle at 20% 10%, rgba(103, 213, 255, 0.2), transparent 12rem),
+    linear-gradient(145deg, rgba(28, 156, 255, 0.16), rgba(255, 255, 255, 0.025));
+  isolation: isolate;
 }
 
-.project-preview iframe {
-  width: 1440px;
-  height: 900px;
-  border: 0;
-  transform: scale(0.245);
-  transform-origin: top left;
+.project-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0 34%, rgba(255, 255, 255, 0.12) 45%, transparent 56% 100%);
+  transform: translateX(-120%);
+  animation: preview-sheen 5.8s ease-in-out infinite;
   pointer-events: none;
-  background: #06101d;
+  z-index: 1;
+}
+
+.preview-catering {
+  --preview-accent: #4fc3ff;
+}
+
+.preview-care {
+  --preview-accent: #6ee7ff;
+}
+
+.preview-organizer {
+  --preview-accent: #328dff;
+}
+
+.preview-browser {
+  position: relative;
+  z-index: 2;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  background: rgba(1, 8, 20, 0.48);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.preview-browser span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(238, 246, 255, 0.48);
+}
+
+.preview-layout {
+  position: relative;
+  z-index: 2;
+  min-height: 176px;
+  padding: 24px;
+}
+
+.preview-layout::before,
+.preview-layout::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(103, 213, 255, 0.1);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.preview-layout::before {
+  right: 22px;
+  top: 22px;
+  width: 36%;
+  height: 74px;
+  background: linear-gradient(135deg, rgba(103, 213, 255, 0.14), rgba(2, 8, 20, 0.34));
+}
+
+.preview-layout::after {
+  left: 24px;
+  right: 24px;
+  bottom: 22px;
+  height: 1px;
+  border-width: 0;
+  background: linear-gradient(90deg, transparent, rgba(103, 213, 255, 0.34), transparent);
+}
+
+.preview-hero-line,
+.preview-text-line,
+.preview-tiles span {
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(238, 246, 255, 0.18), rgba(103, 213, 255, 0.32));
+}
+
+.preview-hero-line {
+  width: 52%;
+  height: 16px;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--preview-accent), transparent 62%);
+}
+
+.preview-text-line {
+  width: 44%;
+  height: 8px;
+  margin-top: 14px;
+  opacity: 0.72;
+}
+
+.preview-text-line.short {
+  width: 32%;
+}
+
+.preview-tiles {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 34px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.preview-tiles span {
+  height: 42px;
+  border: 1px solid rgba(103, 213, 255, 0.13);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--preview-accent), transparent 82%), rgba(255, 255, 255, 0.04));
+}
+
+@keyframes preview-sheen {
+  0%,
+  54% {
+    transform: translateX(-120%);
+  }
+
+  78%,
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .project-content {
@@ -729,10 +855,6 @@ h1 {
     height: 190px;
   }
 
-  .project-preview iframe {
-    transform: scale(0.22);
-  }
-
   .skills-grid {
     grid-template-columns: 1fr;
   }
@@ -749,7 +871,13 @@ h1 {
     font-size: 3rem;
   }
 
-  .project-preview iframe {
-    transform: scale(0.18);
+  .preview-layout {
+    padding: 20px;
+  }
+
+  .preview-tiles {
+    left: 20px;
+    right: 20px;
+    gap: 8px;
   }
 }
